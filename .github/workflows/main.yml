@@ -1,0 +1,43 @@
+name: Strapi on EC2
+
+on:
+  push:
+    branches:
+      - master  # Trigger on push to the main branch, adjust as needed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # Use Ubuntu as the runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install SSH client
+        run: sudo apt-get install -y openssh-client
+
+      - name: SSH and Install dependencies to EC2
+        env:
+          UBUNTU: ${{ secrets.UBUNTU }}
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          KEY_PATH: ${{ secrets.KEY_PATH }}
+        run: |
+          echo "${{ secrets.KEY_PATH }}" > mySAKey.pem
+          chmod 600 mySAKey.pem
+
+      - name: SSH and Deploy Strapi
+        env:
+          UBUNTU: ${{ secrets.UBUNTU }}
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          KEY_PATH: ${{ secrets.KEY_PATH }}
+        run: |
+          ssh -i mySAKey.pem -o StrictHostKeyChecking=no ${UBUNTU}@${EC2_HOST} << 'EOF'
+          sudo chmod -R 755 /home/ubuntu/srv/strapi
+          cd /home/ubuntu/srv/strapi
+          pwd
+          git pull
+          yarn install
+          yarn build
+          pm2 start npm --name "strapi" -- run start
+          pm2 save
+          EOF
