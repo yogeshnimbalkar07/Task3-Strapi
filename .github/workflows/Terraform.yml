@@ -24,6 +24,7 @@ jobs:
            echo "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}" >> $GITHUB_ENV
            echo "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" >> $GITHUB_ENV
            echo "AWS_REGION=ap-south-1
+           shell: bash
 
         - name: Initialize Terraform
           working-directory: ./terraform
