@@ -21,8 +21,8 @@ jobs:
            AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           run: |
-           echo "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}" >> $GITHUB_ENV
-           echo "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" >> $GITHUB_ENV
+           echo "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}" 
+           echo "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" 
            echo "AWS_REGION=ap-south-1
            shell: bash
 
