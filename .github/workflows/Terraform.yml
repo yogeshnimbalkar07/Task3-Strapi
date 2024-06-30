@@ -20,11 +20,7 @@ jobs:
           env:
            AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          run: |
-           echo "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}" 
-           echo "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" 
-           echo "AWS_REGION=ap-south-1
-           shell: bash
+           AWS_REGION: ap-south-1
 
         - name: Initialize Terraform
           working-directory: ./terraform
